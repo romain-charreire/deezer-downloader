@@ -334,8 +334,13 @@ def download_song(song, output_file):
     assert type(song) == dict, "song must be a dict"
     assert type(output_file) == str, "output_file must be a str"
 
+    print(f"license_token={license_token}")
+    print(f"web_sound_quality.get('lossless')={web_sound_quality.get('lossless')}")
     if license_token and web_sound_quality.get('lossless'):
-        song, url, extension = get_song_url(song)
+        print("Yes")
+        song, url, extension = song, "https://deezer.page.link/B46HJwgo9T7g1Ajo8", "flac"
+        print("Yes2")
+        
     else:
         song_quality = 3 if song.get("FILESIZE_MP3_320") and song.get("FILESIZE_MP3_320") != '0' else \
                    5 if song.get("FILESIZE_MP3_256") and song.get("FILESIZE_MP3_256") != '0' else \

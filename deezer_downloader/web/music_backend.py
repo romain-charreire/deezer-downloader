@@ -77,6 +77,7 @@ def clean_filename(path):
 
 
 def download_song_and_get_absolute_filename(search_type, song, playlist_name=None):
+    print(f"search_type, song, playlist_name = {search_type, song, playlist_name}")
     if search_type == TYPE_ALBUM:
         song_filename = "{:02d} - {} {}.mp3".format(int(song['TRACK_NUMBER']),
                                                     song['ART_NAME'],
@@ -146,9 +147,13 @@ def create_m3u8_file(songs_absolute_location):
 
 @sched.register_command()
 def download_deezer_song_and_queue(track_id, add_to_playlist):
+    print(f"get_song_infos_from_deezer_website")
     song = get_song_infos_from_deezer_website(TYPE_TRACK, track_id)
+    print(f"download_song_and_get_absolute_filename")
     absolute_filename = download_song_and_get_absolute_filename(TYPE_TRACK, song)
+    print(f"update_mpd_db")
     update_mpd_db(absolute_filename, add_to_playlist)
+    print(f"make_song_paths_relative_to_mpd_root")
     return make_song_paths_relative_to_mpd_root([absolute_filename])
 
 
